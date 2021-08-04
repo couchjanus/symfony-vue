@@ -9,7 +9,7 @@ mkdir projects && cd projects
 ```
 3. Клонируем репозиторий:
 ```bash
-git clone https://github.com/couchjanus/symfony-vue
+git clone https://github.com/couchjanus/symfony-vue/tree/unit_01
 ```
 4. переходим в каталог:
 ```bash
