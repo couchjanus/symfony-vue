@@ -1,34 +1,30 @@
-#
+# Клонируем репозиторий
+1. переходим в домашний каталог:
+cd 
+2. создаем каталог проектов:
+mkdir projects && cd projects
+3. Клонируем репозиторий:
+git clone https://github.com/couchjanus/symfony-vue
+4. переходим в каталог:
+cd symfony-vue
+5. удаляем чужой origin:
+rm -Rf .git
+6. инициируем свой git:
+git init
+7. добавляем свой remote origin:
+git remote add origin https://github.com/<your-profile>/<your-repo.git> 
+8. меняем ветку:
+git branch -M main
 
+
+9. собираем контейнер:
+docker-compose up -d --build
 docker-compose down
 
-docker-compose up -d --build
+10. выполняем деплой:
+git add .
 
+git commit -m "added docker"
 
-docker-compose exec shop-php  bash
-
-symfony new app
-
-
-mv ./app/* ./
-mv ./app/.* ./
-
-rm -Rf app/     
-
-ls -l
-
-drwxr-xr-x 2 root root  4096 Aug  4 12:26 bin
--rw-r--r-- 1 root root  1411 Aug  4 12:26 composer.json
--rw-r--r-- 1 root root 97362 Aug  4 12:26 composer.lock
-drwxr-xr-x 4 root root  4096 Aug  4 12:26 config
-drwxrwxr-x 4 1000 1000  4096 Aug  2 10:03 docker
--rw-rw-r-- 1 1000 1000   778 Aug  4 12:13 docker-compose.yml
-drwxr-xr-x 2 root root  4096 Aug  4 12:26 public
-drwxr-xr-x 3 root root  4096 Aug  4 12:26 src
--rw-r--r-- 1 root root  3564 Aug  4 12:26 symfony.lock
-drwxrwxrwx 4 root root  4096 Aug  4 12:26 var
-drwxr-xr-x 6 root root  4096 Aug  4 12:26 vendor
-
-chown 1000:1000 -R .
-ls -l
+git push origin main
 
