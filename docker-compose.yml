@@ -4,8 +4,12 @@ services:
 
   shop-php:
     container_name: shop-php
+    user: "${UID}:${GID}"
     build:
       context: ./docker/dev/php-fpm
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
     volumes:
       - ./:/var/www
       - ./docker/dev/php-fpm/php.ini:/usr/local/etc/php/php.ini
