@@ -11,10 +11,21 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+    {{ include('_menu.html.twig') }}
+
+    <img src="{{ asset('img/product.jpg') }}">
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ '/var/www/src/Controller/HelloController.php'|file_link(0) }}">src/Controller/HelloController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/templates/hello/index.html.twig'|file_link(0) }}">templates/hello/index.html.twig</a></code></li>
     </ul>
 </div>
+
+    {% block scrip %}
+        <script>
+            // console.log(document.querySelector('.example-wrapper'));
+            // document.querySelector('.example-wrapper').style.backgroundColor = 'green';
+        </script>
+    {% endblock %}
+
 {% endblock %}

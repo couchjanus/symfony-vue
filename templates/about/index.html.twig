@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AboutController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller }}! ✅</h1>
+
+    <h2>{{ hello1 | upper }}</h2>
+
+    {# Aug 7, 2019, 11:39:12 PM #}
+    {{ '2021-08-07 23:39:12'|format_datetime() }}
+    You can tweak the output for the date part and the time part:
+
+    {# 23:39 #}
+    {{ '2021-08-07 23:39:12'|format_datetime('none', 'short', locale='us') }}
+
+    {% if online == false %}
+        <p>Our website is in maintenance mode. Please, come back later.</p>
+    {% endif %}
+    {% dump users %}
+
+
+    {% if users %}
+        <ul>
+            {% for user in users %}
+                <li>{{ user.username|e }}
+                    {% if not user.subscribed %}
+                        <p>You are not subscribed to our mailing list.</p>
+                    {% endif %}
+                    {% if date(user.created_at) < date() %}
+                         always!
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {{ include('_menu.html.twig') }}
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ '/var/www/src/Controller/AboutController.php'|file_link(0) }}">src/Controller/AboutController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/var/www/templates/about/index.html.twig'|file_link(0) }}">templates/about/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}
