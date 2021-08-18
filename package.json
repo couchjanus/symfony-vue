@@ -1,0 +1,31 @@
+{
+    "devDependencies": {
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "autoprefixer": "^10.3.1",
+        "core-js": "^3.0.0",
+        "postcss-loader": "^6.1.1",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.37.5",
+        "sass-loader": "^12.0.0",
+        "stimulus": "^2.0.0",
+        "vue": "^2.6",
+        "vue-loader": "^15",
+        "vue-template-compiler": "^2.6.14",
+        "webpack-notifier": "^1.6.0"
+    },
+    "browserslist": [
+        "> 0.5%",
+        "last 2 versions",
+        "Firefox ESR",
+        "not dead"
+    ],
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    }
+}
