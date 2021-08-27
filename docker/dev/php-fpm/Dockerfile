@@ -1,7 +1,7 @@
 FROM php:8.0-fpm
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev libssl-dev libxml2-dev libpq-dev \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y zlib1g-dev g++ sudo libcurl4 git libicu-dev zip libzip-dev libssl-dev libxml2-dev libpq-dev \
     && docker-php-ext-install -j$(nproc) intl opcache \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
@@ -14,6 +14,22 @@ RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update && apt-get install -y nodejs yarn
+
+# Install SQL Server extensions
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+&& curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
+
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends locales apt-transport-https \
+&& echo "uk_UA.UTF-8 en_US.UTF-8 UTF-8" > /etc/locale.gen \
+&& locale-gen
+
+RUN ACCEPT_EULA=Y apt-get install -y mssql-tools
+RUN apt-get install -y unixodbc-dev libgssapi-krb5-2
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
+RUN docker-php-ext-enable sqlsrv
+RUN docker-php-ext-enable pdo_sqlsrv
 
 
 WORKDIR /var/www

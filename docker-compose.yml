@@ -31,12 +31,18 @@ services:
       - "80:80"
       - "443:443"
 
-#  shop-node:
-#    container_name: shop-node
-#    image: node:latest
-#    volumes:
-#      - ./:/var/www
-#    working_dir: /var/www
-#    ports:
-#      - "8080:8080"
-#
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1Ghbdtn!
+    ports:
+      - "1433:1433"
+    volumes:
+      - ms_sqlsrv_data:/var/opt/mssql
+
+volumes:
+    ms_sqlsrv_data:
+      driver: local
+
