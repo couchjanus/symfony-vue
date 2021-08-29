@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    use Timestamps;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -96,5 +97,11 @@ class Category
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

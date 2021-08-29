@@ -6,6 +6,10 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '13'
         charset: utf-8
+        types:
+            datetime: TS\DoctrineExtensions\DBAL\FixedDbTimezone\DateTimeType
+            datetime_immutable: TS\DoctrineExtensions\DBAL\FixedDbTimezone\DateTimeImmutableType
+
 
     orm:
         auto_generate_proxy_classes: true

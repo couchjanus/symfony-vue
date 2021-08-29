@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Brand
 {
+    use Timestamps;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -96,5 +98,11 @@ class Brand
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

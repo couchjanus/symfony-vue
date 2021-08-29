@@ -31,6 +31,9 @@ RUN pecl install pdo_sqlsrv
 RUN docker-php-ext-enable sqlsrv
 RUN docker-php-ext-enable pdo_sqlsrv
 
+ENV TZ=Europe/Kiev
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# RUN date
 
 WORKDIR /var/www
 

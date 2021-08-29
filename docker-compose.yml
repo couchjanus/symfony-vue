@@ -10,6 +10,7 @@ services:
     environment:
       - APP_ENV=${APP_ENV}
       - APP_SECRET=${APP_SECRET}
+      - DATABASE_TIMEZONE=Europe/Kiev
     volumes:
       - ./:/var/www
       - ./docker/dev/php-fpm/php.ini:/usr/local/etc/php/php.ini
