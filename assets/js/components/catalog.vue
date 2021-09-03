@@ -10,6 +10,7 @@
 <script>
 import TitleComponent from '@/components/title';
 import ProductList from '@/components/product-list';
+import axios from 'axios';
 
 export default {
   name: "catalog",
@@ -20,19 +21,27 @@ export default {
   data: () => (
       {
         title: 'Products Catalog',
-        products:[
-        {
-         name: 'Product 1'
-        },
-        {
-          name: 'Product 2'
-        },
-        {
-            name: 'Product 3'
-        },
-      ]
+        products:[]
       }
-  )
+  ),
+  created() {
+    this.getProducts();
+  },
+  methods:{
+    async getProducts(){
+      this.products = [];
+      const response = await this.fetchProducts();
+      console.log(response.data['hydra:member']);
+      this.products = response.data['hydra:member'];
+    },
+    fetchProducts(){
+      return axios({
+        method: 'get',
+        url: '/api/products'
+      })
+
+    }
+  }
 }
 </script>
 

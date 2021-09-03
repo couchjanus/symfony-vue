@@ -2,19 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * 
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
- * 
  */
-
 #[ApiResource]
 class Category
 {
@@ -23,7 +19,6 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *  
      */
     private $id;
 
@@ -39,7 +34,6 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", orphanRemoval=true)
-     * 
      */
     private $products;
 

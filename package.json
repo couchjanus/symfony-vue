@@ -27,5 +27,10 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "bootstrap": "^5.1.0",
+        "node-sass": "^6.0.1"
     }
 }
