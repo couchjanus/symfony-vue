@@ -6,10 +6,16 @@ use App\Repository\BrandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="brand:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="brand:item"}}},
+ * )
  */
 class Brand
 {
@@ -19,21 +25,25 @@ class Brand
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['brand:list', 'brand:item'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['brand:list', 'brand:item'])]
     private $name;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Groups(['brand:list', 'brand:item'])]
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="brand")
      */
+    #[Groups(['brand:list', 'brand:item'])]
     private $products;
 
     public function __construct()
