@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}Product Controller!{% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('products') }}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 {% block body %}

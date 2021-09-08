@@ -12,7 +12,7 @@ use App\Entity\Product;
 
 class ProductController extends AbstractController
 {
-    #[Route('/', name: 'product')]
+    #[Route('/', name: 'home')]
     public function index(): Response
     {
         return $this->render('product/index.html.twig', [
