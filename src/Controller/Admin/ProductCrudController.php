@@ -4,13 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+//use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\{TextField, TextEditorField, NumberField, IntegerField, AssociationField, FormField, ImageField, Field};
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -37,7 +33,11 @@ class ProductCrudController extends AbstractCrudController
             FormField::addPanel("Categories"),
             AssociationField::new('category')
                 ->setRequired(true)
-                ->setHelp("Choise category")
+                ->setHelp("Choise category"),
+
+            ImageField::new('image_name')->setBasePath($this->getParameter('app.path.product_images'))->onlyOnIndex(),
+
+            Field::new('imageFile')->SetFormType(VichImageType::class)->onlyOnForms()
 
         ];
     }
