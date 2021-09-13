@@ -75,7 +75,7 @@ export default {
     async getProduct() {
       this.product = {};
       try {
-        const response = await this.fetchProduct(this.$route.params.id);
+        const response = await this.fetchProduct(this.$route.params.slug);
         this.product = response.data;
         // console.Namelog(this.product);
       } catch (error) {
@@ -83,10 +83,10 @@ export default {
       }
     },
 
-    fetchProduct(id) {
+    fetchProduct(slug) {
       return axios({
         method: "get",
-        url: `/api/products/${id}`,
+        url: `/api/products/${slug}`,
       });
     },
   },

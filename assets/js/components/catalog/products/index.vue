@@ -14,7 +14,7 @@
                 <p class="card-text">{{product.name}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <router-link :to="'/details/'+product.id">
+                    <router-link :to="'/details/'+product.slug">
                     <button type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
                     </router-link>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
