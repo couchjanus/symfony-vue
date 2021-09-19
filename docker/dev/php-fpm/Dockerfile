@@ -9,6 +9,9 @@ RUN apt-get update \
     && docker-php-ext-install zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN pecl install xdebug \
+     && docker-php-ext-enable xdebug
+
 RUN curl https://deb.nodesource.com/setup_16.x | bash
 RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list

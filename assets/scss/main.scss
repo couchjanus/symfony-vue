@@ -1,5 +1,13 @@
 @import '~bootstrap';
 
-svg.bi{
-  color: white!important;
+ul.nav li:hover,
+a.router-link-active:hover,
+.nav li a.router-link-exact-active{
+  color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity))!important;
+  cursor: pointer;
+}
+
+
+a.router-link-active{
+  color: white;
 }

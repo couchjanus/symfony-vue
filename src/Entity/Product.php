@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -11,21 +12,48 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Controller\Api\GetProductBySlug;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
+ *  @ApiResource(
+ *   normalizationContext={"groups" = {"product"}},
+ *   itemOperations={
+ *     "get",
+ *     "get_by_slug" = {
+ *       "method" = "GET",
+ *       "path" = "/products/{slug}",
+ *       "controller" = ProductBySlugController::class,
+ *       "read"=false,
+ *       "openapi_context" = {
+ *         "parameters" = {
+ *           {
+ *             "name" = "slug",
+ *             "in" = "path",
+ *             "description" = "The slug of your product",
+ *             "type" = "string",
+ *             "required" = true,
+ *             "example"= "Black_Cat_10_09_2021_08_47_36",
+ *           },
+ *         },
+ *       },
+ *     },
+ *     }
+ * )
  */
-#[ApiResource(normalizationContext:['groups' => ['product']])]
+
 class Product
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=false)
      * @Groups({"product"})
      */
-    private $id;
+    private  ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -58,13 +86,39 @@ class Product
      */
     private $createdAt;
 
-    public function __construct(){
-        $this->createdAt = new \DateTime();
+//    public function __construct(){
+//        $this->createdAt = new \DateTime();
+//    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps():void
+    {
+        $this->setUpdatedAt(new \DateTime());
+        if ($this->getCreatedAt()===null){
+            $this->setCreatedAt(new \DateTime());
+        }
     }
 
+    public function setCreatedAt(?\DateTimeInterface $created){
+        $this->createdAt = $created;
+    }
+    public function setUpdatedAt(?\DateTimeInterface $updated){
+        $this->updatedAt = $updated;
+    }
+
+    public function getCreatedAt():?\DateTimeInterface{
+        return $this->createdAt;
+    }
+    public function getUpdatedAt():?\DateTimeInterface{
+        return $this->updatedAt;
+    }
     /**
      * @ORM\Column(type="string", length=128, unique=true)
      * @Gedmo\Slug(fields={"name", "createdAt"}, style="camel", separator="_", updatable=false, unique=false, dateFormat="d/m/Y H-i-s")
+     * @ApiProperty(identifier=true)
      * @Groups({"product"})
      */
     private $slug;

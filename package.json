@@ -30,6 +30,11 @@
     },
     "dependencies": {
         "@dvuckovic/vue-bootstrap-icons": "^1.0.8",
+        "@fortawesome/fontawesome-svg-core": "^1.2.36",
+        "@fortawesome/free-brands-svg-icons": "^5.15.4",
+        "@fortawesome/free-regular-svg-icons": "^5.15.4",
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
+        "@fortawesome/vue-fontawesome": "^2.0.2",
         "axios": "^0.21.1",
         "bootstrap": "^5.1.0",
         "node-sass": "^6.0.1",

@@ -11,8 +11,11 @@ services:
       - APP_ENV=${APP_ENV}
       - APP_SECRET=${APP_SECRET}
       - DATABASE_TIMEZONE=Europe/Kiev
+      - PHP_IDE_CONFIG="serverName=Docker"
     volumes:
       - ./:/var/www
+      - ./docker/dev/php-fpm/config.d/xdebug.ini:/usr/local/etc/php/config.d/docker-php-ext-xdebug.ini
+      - ./docker/dev/php-fpm/config.d/error_reporting.ini:/usr/local/etc/php/config.d/error_reporting.ini
       - ./docker/dev/php-fpm/php.ini:/usr/local/etc/php/php.ini
 
   shop-nginx:

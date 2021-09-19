@@ -16,13 +16,13 @@
                 <router-link to="/" class="nav-link"><svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg> Home</router-link>
 
               </li>
-              <li>
+              <li v-if="isAuth">
                 <a href="#" class="nav-link text-white">
                   <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
                   Dashboard
                 </a>
               </li>
-              <li>
+              <li v-if="isAuth">
                 <a href="#" class="nav-link text-white">
                   <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
                   Orders
@@ -30,12 +30,11 @@
               </li>
               <li>
                 <router-link to="/catalog" class="nav-link"><svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg> Catalog</router-link>
-
-
               </li>
-              <li>
+
+              <li v-if="isAuth">
                 <a href="#" class="nav-link text-white">
-                  <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
+                  <font-awesome-icon icon="user-secret"></font-awesome-icon>
                   Customers
                 </a>
               </li>
@@ -49,7 +48,12 @@
             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
           </form>
 
-          <div class="text-end">
+          <div class="text-end" v-if="isAuth">
+            <button type="button" class="btn btn-light text-dark me-2">Logout</button>
+            <button type="button" class="btn btn-primary">Yuor profile</button>
+          </div>
+
+          <div class="text-end" v-else>
             <button type="button" class="btn btn-light text-dark me-2">Login</button>
             <button type="button" class="btn btn-primary">Sign-up</button>
           </div>
@@ -61,7 +65,11 @@
 
 <script>
 export default {
-  name: "NavbarComponent"
+  name: "NavbarComponent",
+
+data: () => ({
+  isAuth: false,
+})
 }
 </script>
 

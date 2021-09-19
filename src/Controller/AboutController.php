@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
 
 class AboutController extends AbstractController
 {
@@ -32,4 +33,17 @@ class AboutController extends AbstractController
             'users' => $users
         ]);
     }
+
+
+    #[Route('/log', name: 'log')]
+    public function dev(LoggerInterface $logger): ?Response  {
+        $logger->info('I just got the logger');
+        $logger->error('An error occurred');
+        $logger->critical('I left the oven on!', [
+            // include extra "context" info in your logs
+            'cause' => 'in_hurry',
+        ]);
+        dd($logger);
+    }
+
 }
