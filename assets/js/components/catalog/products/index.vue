@@ -17,7 +17,7 @@
                     <router-link :to="'/details/'+product.slug">
                     <button type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
                     </router-link>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product)">Add to cart</button>
                   </div>
                   <small class="text-muted">{{product.price}}</small>
                 </div>
@@ -38,7 +38,47 @@ export default {
     products: {
       type: Array
     }
+  },
+  data: () => ({
+    product: {},
+
+    newItem:null,
+    cart:[],
+    // title: "Products catalog"
+  }),
+  mounted() {
+    if(localStorage.getItem('basket')){
+      try{
+        this.cart = JSON.parse(localStorage.getItem('basket'));
+      }catch(e){
+        localStorage.removeItem('basket');
+      }
+    }
+  },
+  methods: {
+    addToCart:function(product){
+      this.newItem = {
+        name: product.name,
+        image: product.imageName,
+        slug:product.slug,
+        price:product.price,
+        brand:product.brand.name,
+        category:product.category.name,
+        quantity: 1
+      }
+      //
+      this.cart.push(this.newItem);
+      this.newItem = null;
+      // console.log(obj);
+      this.saveCart();
+    },
+
+    saveCart(){
+      const parsed = JSON.stringify(this.cart);
+      localStorage.setItem('basket', parsed);
+    }
   }
+
 }
 </script>
 
