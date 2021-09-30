@@ -1,0 +1,23 @@
+[notice] Migrating up to DoctrineMigrations\Version20210927085349
+[error] Migration DoctrineMigrations\Version20210927085349 failed during Execution. Error: "An exception occurred while executing 'EXEC sp_addextendedproperty N'MS_Description', N'(DC2Type:json)', N'SCHEMA', 'dbo', N'TABLE', '[user]', N'COLUMN', roles':
+
+SQLSTATE [42000, 15135]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Object is invalid. Extended properties are not permitted on 'dbo.[user].roles', or the object does not exist."
+
+In DBALException.php line 185:
+
+  An exception occurred while executing 'EXEC sp_addextendedproperty N'MS_Des
+  cription', N'(DC2Type:json)', N'SCHEMA', 'dbo', N'TABLE', '[user]', N'COLUM
+  N', roles':
+
+  SQLSTATE [42000, 15135]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Ser
+  ver]Object is invalid. Extended properties are not permitted on 'dbo.[user]
+  .roles', or the object does not exist.
+
+
+In Error.php line 45:
+
+  SQLSTATE [42000, 15135]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Ser
+  ver]Object is invalid. Extended properties are not permitted on 'dbo.[user]
+  .roles', or the object does not exist.
+
+

@@ -2,6 +2,5 @@
 #    path: /
 #    controller: App\Controller\MyClass::index
 
-dev:
-    path: /dev
-    controller: App\Controller\MyClass1::hell
+api_login_check:
+    path: /api/login_check
