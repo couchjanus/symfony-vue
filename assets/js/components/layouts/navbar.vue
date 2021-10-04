@@ -1,40 +1,39 @@
 <template>
   <div>
     <header>
-      <div class="px-3 py-2 bg-dark text-white">
+      <div class="px-3 py-2 text-white bg-dark">
         <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-              <BootstrapIcon
-                  icon="bootstrap-fill"
-                  variant="light"
-                  size="3x" />
+          <div class="flex-wrap d-flex align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="my-2 text-white d-flex align-items-center my-lg-0 me-lg-auto text-decoration-none">
+              <i class="fas fa-home"></i>
             </a>
 
-            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+            <ul class="my-2 nav col-12 col-lg-auto justify-content-center my-md-0 text-small">
               <li>
-                <router-link to="/" class="nav-link"><svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg> Home</router-link>
-
+                <router-link to="/" class="nav-link">
+                <font-awesome-icon icon="home" /> Home</router-link>
               </li>
               <li v-if="isAuth">
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
-                  Dashboard
+                <a href="#" class="text-white nav-link">
+                  <font-awesome-icon icon="tachometer-alt" />
+                  Dashboard 
                 </a>
               </li>
               <li v-if="isAuth">
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
+                <a href="#" class="text-white nav-link">
+                  <font-awesome-icon icon="info-circle" />
                   Orders
                 </a>
               </li>
               <li>
-                <router-link to="/catalog" class="nav-link"><svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg> Catalog</router-link>
+                <router-link to="/catalog" class="nav-link">
+                
+                <font-awesome-icon icon="folder-open" /> Catalog</router-link>
               </li>
 
               <li v-if="isAuth">
-                <a href="#" class="nav-link text-white">
-                  <font-awesome-icon icon="user-secret"></font-awesome-icon>
+                <a href="#" class="text-white nav-link">
+                <font-awesome-icon icon="user" />
                   Customers
                 </a>
               </li>
@@ -42,27 +41,39 @@
           </div>
         </div>
       </div>
-      <div class="px-3 py-2 border-bottom mb-3">
-        <div class="container d-flex flex-wrap justify-content-center">
-          <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+      <div class="px-3 py-2 mb-3 border-bottom">
+        <div class="container flex-wrap d-flex justify-content-center">
+          <form class="mb-2 col-12 col-lg-auto mb-lg-0 me-lg-auto">
             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
           </form>
 
           <div class="text-end" v-if="isAuth">
-            <button type="button" class="btn btn-light text-dark me-2">Logout</button>
+            <button type="button" @click="logout" class="btn btn-light text-dark me-2">
+            <font-awesome-icon icon="sign-out-alt" />
+             Logout</button>
             <button type="button" class="btn btn-primary">Yuor profile</button>
           </div>
 
           <div class="text-end" v-else>
-            <router-link :to="{name: 'login'}">
-              <button type="button" class="btn btn-light text-dark me-2">Login</button>
+            <router-link :to="{ name: 'login' }">
+              <button type="button" class="btn btn-light text-dark me-2">
+              
+              <font-awesome-icon icon="sign-in-alt" />
+               Sign in</button>
             </router-link>
-            <button type="button" class="btn btn-primary">Sign-up</button>
+            
+            <router-link :to="{ name: 'register' }">
+              <button type="button" class="btn btn-primary">
+              <font-awesome-icon icon="user-plus" />
+               Sign up</button>
+            </router-link>
+            
           </div>
         </div>
       </div>
     </header>
   </div>
+
 </template>
 
 <script>
@@ -71,7 +82,21 @@ export default {
 
 data: () => ({
   isAuth: false,
-})
+}),
+
+
+methods: {
+    // ...mapActions({
+    //   logout: "auth/logout",
+    // }),
+    logout() {
+      // this.logout();
+      this.isAuth = false,
+      this.$router.replace({
+        name: "home",
+      });
+    },
+  },
 }
 </script>
 
