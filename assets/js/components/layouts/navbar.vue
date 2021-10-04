@@ -54,7 +54,9 @@
           </div>
 
           <div class="text-end" v-else>
-            <button type="button" class="btn btn-light text-dark me-2">Login</button>
+            <router-link :to="{name: 'login'}">
+              <button type="button" class="btn btn-light text-dark me-2">Login</button>
+            </router-link>
             <button type="button" class="btn btn-primary">Sign-up</button>
           </div>
         </div>

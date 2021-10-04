@@ -8,14 +8,31 @@ import NotFound from '@/components/common/404';
 Vue.use(VueRouter);
 
 function lazyLoad(item){
-    return () => import(`@/components/catalog/${item}.vue`)
+    return () => import(`@/components/${item}.vue`)
 }
 
 const router = new VueRouter({
     routes:[
-        {path: '/', component: Home},
-        {path: '/catalog', component: lazyLoad('index')},
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/catalog',
+            component: lazyLoad('catalog/index')
+        },
         {path: '/details/:slug', component: ProductDetails},
+        {
+            path: '/login',
+            name: 'login',
+            component: lazyLoad('auth/login')
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: lazyLoad('customer/dashboard')
+        },
         {path: '*', component: NotFound},
     ]
     });
