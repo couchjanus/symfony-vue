@@ -4,3 +4,10 @@
 
 api_login_check:
     path: /api/login_check
+
+
+login:
+    path: /api/login
+    methods: ['POST']
+    defaults:
+        _format: json

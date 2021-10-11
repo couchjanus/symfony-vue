@@ -22,11 +22,15 @@ window.axios = require('axios');
 // axios.defaults.baseURL = 'https://api.example.com';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+require('@/store/subsriber');
 
-new Vue({
-    router,
-    // указываем хранилище в опции store, что обеспечит
-    // доступ к нему во всех дочерних компонентах
-    store,
-    render: h => h(App),
-}).$mount('#app');
+store.dispatch('auth/attempt', localStorage.getItem('token')).then(()=>{
+    new Vue({
+        router,
+        // указываем хранилище в опции store, что обеспечит
+        // доступ к нему во всех дочерних компонентах
+        store,
+        render: h => h(App),
+    }).$mount('#app');
+
+})

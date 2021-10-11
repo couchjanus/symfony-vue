@@ -30,80 +30,31 @@
 
 
 <script>
-// import { mapActions } from "vuex";
-import HttpService from "@/services/httpService";
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {
       form: {
-        email: "johndoe@my.cat",
-        password: "test",
+        email: "",
+        password: "",
       },
     };
   },
   
   methods: {
-    // ...mapActions({
-    //   login: "auth/login",
-    // }),
+    ...mapActions({
+      login: "auth/login",
+    }),
     
-    // signIn() {
-    //     console.log({ email: this.form.email });
-    //     this.$router.replace({
-    //       name: "dashboard",
-    //     });
-    // },
-
-    // POST request using axios with async/await
-    // async signIn() {
-    //   console.log({ email: this.form.email, password: this.form.password });
-    //   const response = await axios.post("http://localhost:8000/api/login_check", 
-    //                  {"username":this.form.email,"password":this.form.password});
-      
-    //   console.log(response);
-      
-    //   this.$router.replace({
-    //     name: "dashboard",
-    //   });
-      
-    // },
-
-    // HttpService
-
-    // async signIn() {
-    //   // console.log({ email: this.form.email, password: this.form.password });
-    //   const response = await HttpService.login_check( {"username":this.form.email, "password":this.form.password});
-      
-    //   console.log(response);
-      
-    //   this.$router.replace({
-    //     name: "dashboard",
-    //   });
-      
-    // },
-
-    async signIn() {
-      console.log({ email: this.form.email, password: this.form.password });
-      const response = await HttpService.login_check(
-      {
-        "username":this.form.email, 
-        "password":this.form.password
-      })
-      .catch((e)=>{
-        console.log(e);
-      });
-      
-      console.log(response);
-      
-      this.$router.replace({
-        name: "dashboard",
-      });
-      
+    signIn() {
+        this.login(this.form).finally(()=>{
+          this.$router.replace({
+            name: "dashboard",
+          });
+        })
     },
-  
-    
-
   },
 };
 </script>

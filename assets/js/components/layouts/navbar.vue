@@ -47,14 +47,14 @@
             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
           </form>
 
-          <div class="text-end" v-if="isAuth">
-            <button type="button" @click="logout" class="btn btn-light text-dark me-2">
+          <div class="text-end" v-if="isAuthenticated">
+            <button type="button" @click="signOut" class="btn btn-light text-dark me-2">
             <font-awesome-icon icon="sign-out-alt" />
              Logout</button>
             <button type="button" class="btn btn-primary">Yuor profile</button>
           </div>
 
-          <div class="text-end" v-else>
+          <div class="text-end" v-if="!isAuthenticated">
             <router-link :to="{ name: 'login' }">
               <button type="button" class="btn btn-light text-dark me-2">
               
@@ -77,25 +77,27 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters} from 'vuex';
 export default {
   name: "NavbarComponent",
 
-data: () => ({
-  isAuth: false,
-}),
-
-
-methods: {
-    // ...mapActions({
-    //   logout: "auth/logout",
-    // }),
-    logout() {
-      // this.logout();
-      this.isAuth = false,
+  methods: {
+    ...mapActions({
+      logout: "auth/logout",
+    }),
+    signOut() {
+      this.logout();
       this.$router.replace({
         name: "home",
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
+
   },
 }
 </script>

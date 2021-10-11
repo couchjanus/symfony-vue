@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Security;
 
 class AuthController extends AbstractController
 {
-    
+
     public function __construct(
         private CustomerRepository $userRepository,
         private Security $security,
@@ -28,5 +28,14 @@ class AuthController extends AbstractController
         return new JsonResponse([
             'user' => $this->serializer->serialize($user, 'json')
         ], 201);
+    }
+
+    #[Route('/api/profile', name:'user.profile')]
+    public  function profile():JsonResponse
+    {
+        $user = $this->serializer->serialize(['email'=>'dog@my.com'], 'json');
+        return new JsonResponse([
+            $user
+        ], 200);
     }
 }
