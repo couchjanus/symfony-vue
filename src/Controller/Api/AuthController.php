@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Security;
 
-class AuthController extends AbstractController
+class AuthController extends ApiController
 {
 
     public function __construct(
         private CustomerRepository $userRepository,
         private Security $security,
-        private SerializerInterface $serializer
+//        private SerializerInterface $serializer
     )
     {
     }
@@ -31,11 +31,12 @@ class AuthController extends AbstractController
     }
 
     #[Route('/api/profile', name:'user.profile')]
-    public  function profile():JsonResponse
+    public  function profile():Response
     {
-        $user = $this->serializer->serialize(['email'=>'dog@my.com'], 'json');
-        return new JsonResponse([
-            $user
-        ], 200);
+//        $user = $this->serializer->serialize(['email'=>'dog@my.com'], 'json');
+//        return new JsonResponse([
+//            $user
+//        ], 200);
+        return $this->responseHelper->createResponse($this->getUser(), ['customer'], 200,);
     }
 }
