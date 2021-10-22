@@ -2,7 +2,7 @@
 
 namespace App\Helper;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class JsonResponseHelper
@@ -13,9 +13,8 @@ class JsonResponseHelper
         $this->serialiser = $serialiser;
     }
 
-    public function createResponse($entity, array $serializationGroups, int $status){
-        return new Response($this->serialiser->serialize($entity, 'json', ['groups' => $serializationGroups]),
-        $status,
-        ['content-type' => 'application/json']);
+    public function createResponse($entity, array $serializationGroups, int $status = 200): JsonResponse
+    {
+        return new JsonResponse($this->serialiser->serialize($entity, 'json', ['groups' => $serializationGroups]), $status);
     }
 }

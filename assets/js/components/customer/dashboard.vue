@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hello {{ user.email }}!</h1>
+    <h1>Hello {{ userName }}!</h1>
 
   </div>
 </template>
@@ -19,8 +19,10 @@ export default {
     ...mapGetters({
       user: "auth/getUser",
     }),
+    userName(){
+      return this.user.email.split('@').shift();
+    }
 
   },
-
 };
 </script>

@@ -2,41 +2,27 @@
 
 namespace App\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\CustomerRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Security\Core\Security;
+use App\Entity\Customer;
 
+#[Route('/api')]
 class AuthController extends ApiController
 {
-
-    public function __construct(
-        private CustomerRepository $userRepository,
-        private Security $security,
-//        private SerializerInterface $serializer
-    )
+    #[Route('/register', name: 'customer.register')]
+    public function app(Request $request) : JsonResponse
     {
-    }
-    #[Route('/api/register', name:'user.register')]
-    public function app(Request $request):JsonResponse
-    {
-        $jsonData = json_decode($request->getContent());
-        $user = $this->userRepository->create($jsonData);
-        return new JsonResponse([
-            'user' => $this->serializer->serialize($user, 'json')
-        ], 201);
+        $jsonData = $this->requestHelper->handleRequest($request->getContent(), 'users', Customer::class);
+        $customer = $this->em->getRepository(Customer::class)->createNewCustomer($jsonData);
+        return $this->responseHelper->createResponse($customer, ['customers'], 201);
     }
 
-    #[Route('/api/profile', name:'user.profile')]
-    public  function profile():Response
+    #[Route('/profile', name: 'user.profile')]
+    public function profile(Request $request) : JsonResponse
     {
-//        $user = $this->serializer->serialize(['email'=>'dog@my.com'], 'json');
-//        return new JsonResponse([
-//            $user
-//        ], 200);
-        return $this->responseHelper->createResponse($this->getUser(), ['customer'], 200,);
+        $currentUser = $this->getUser();
+        return $this->responseHelper->createResponse($currentUser, ['customers'], 200);
     }
+
 }

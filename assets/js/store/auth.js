@@ -44,7 +44,9 @@ export default {
             }
 
             try{
-                let response = await HttpService.get('/profile')
+                // let response = await HttpService.get('/profile')
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                let response = await axios.get('/api/profile')
                 commit('setUser', JSON.parse(response.data))
             }catch(e){
                 commit('setUser', null)
